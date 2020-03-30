@@ -55,11 +55,8 @@ func main() {
 	// initialize http.Handler for /query entry point
 	handler := &relay.Handler{Schema: schema}
 
-	// create router
-	router := mux.NewRouter()
-	router.Handle("/query", upload.Handler(handler))
-
 	fmt.Println("serving http on :8000")
+	http.Handle("/query", upload.Handler(handler))
 	err := http.ListenAndServe(":8000", router)
 	if err != nil {
 		log.Fatalln(err)
